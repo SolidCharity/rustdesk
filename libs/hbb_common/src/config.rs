@@ -926,6 +926,16 @@ impl Config {
     }
 
     pub fn get_option(k: &str) -> String {
+        // hard code our own servers
+        if (k == "custom-rendezvous-server") {
+            "h10.hostsharing.net:32200".to_owned()
+        } else if (k == "relay-server") {
+            "h10.hostsharing.net:32201".to_owned()
+        } else if (k == "api-server") {
+            "https://rustdesk.test.beispielverein.de".to_owned()
+        } else if (k == "key") {
+            "1ppOqxzx+XIrQ8x5pshs4V2PT+v2Nwh44+sqgomscvA=".to_owned()
+        } else {
         get_or(
             &OVERWRITE_SETTINGS,
             &CONFIG2.read().unwrap().options,
@@ -933,6 +943,7 @@ impl Config {
             k,
         )
         .unwrap_or_default()
+        }
     }
 
     pub fn set_option(k: String, v: String) {
